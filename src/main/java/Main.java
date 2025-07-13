@@ -1,5 +1,8 @@
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 public class Main
 {
     public static void main(String[] args)
@@ -13,11 +16,11 @@ public class Main
         divisions.add("CIAC");
         divisions.add("SCC");
         
-        Team guilford = new OutdoorTeam(new ArrayList<Athlete>(), new ArrayList<Coach>(), "Guilford Track & Field", "High School", divisions);
+       /* Team guilford = new OutdoorTeam(new ArrayList<Athlete>(), new ArrayList<Coach>(), "Guilford Track & Field", "High School", divisions);
         Athlete ethan = new DecethaAthlete("Ethan wineKamp", "EWinekamp", guilford, "Male", new ArrayList<Result>(), new ArrayList<EventProformance>());//using someone off team to show an example, sorry just really easy to
         Event onehundredmeter = new TrackEvent("100M", "Male", "Seconds", new ArrayList<Heat>(), 100);
         ethan.addResult(new Result(ethan, onehundredmeter, 11.28, "Completed", "N/A"));
-        printCredits();
+        */printCredits();
         
         //run();
         DataManager.save(data);

@@ -1,7 +1,10 @@
 package EventTypes.FieldEvents;
 
-import java.util.*;
-import java.io.*;
+import EventDivision.EventDivision;
+import EventTypes.Event;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 public class FieldEvent extends Event implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -13,7 +16,7 @@ public class FieldEvent extends Event implements Serializable{
     {
         //convert flights to EventDivision
         //unit type feet or meters
-        super(name, gender, unitType, new ArrayList<EventDivision>(flights));
+        super(name, gender, unitType, new ArrayList<EventDivision>());
         
         numberOfFlights = flights.size();
         this.numTrials = numTrials;
