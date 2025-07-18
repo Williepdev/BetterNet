@@ -1,7 +1,15 @@
 package MeetClasses;
 
-import java.util.*;
-import java.io.*;
+import EventTypes.Event;
+import EventTypes.Relay;
+import PeopleTypes.Athlete;
+import LiveResults.EventProformance;
+import LiveResults.Result;
+import TeamTypes.Team;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 //imports date and time
 //scoring site https://sportmentary.com/track-field/track-field-basics/keep-score-track-field-meet/ & https://centralconnecticutconference.org/ccc-regulations-indoor-track-g/
 /*I do not know how to score pole vault/High jump 
@@ -14,7 +22,7 @@ public class Meet implements Serializable{
     
     private Date date;//initialized as Date(y, m, d)
     private ArrayList<Event> events;
-    private ArrayList<Team> teams; 
+    private ArrayList<Team> teams;
     private String name;
     private String location;
     private String type;// has to be Initialized as INVITE OR DUEL/TRI

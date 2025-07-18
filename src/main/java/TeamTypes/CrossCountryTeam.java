@@ -1,7 +1,11 @@
 package TeamTypes;
 
-import java.util.*;
-import java.io.*;
+import PeopleTypes.Athlete;
+import PeopleTypes.Coach;
+import AthleteTypes.DistanceRunner;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 public class CrossCountryTeam extends Team implements Serializable{
     private static final long serialVersionUID = 1L;
     private ArrayList<DistanceRunner> roster;

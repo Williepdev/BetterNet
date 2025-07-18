@@ -1,7 +1,13 @@
 package PeopleTypes;
 
-import java.util.*;
-import java.io.*;
+import EventTypes.Event;
+import EventTypes.FieldEvents.FieldEvent;
+import LiveResults.EventProformance;
+import LiveResults.Result;
+import TeamTypes.Team;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 public abstract class Athlete extends Person implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -10,7 +16,7 @@ protected ArrayList<Result> results;
 protected ArrayList<Result> prs;
 protected ArrayList<EventProformance> attempts;
 
-    public Athlete(String name, String userName, Team team, String gender, ArrayList<Result> results, 
+    public Athlete(String name, String userName, Team team, String gender, ArrayList<Result> results,
     ArrayList<EventProformance> attempts)
     {
         super(name, userName, gender);

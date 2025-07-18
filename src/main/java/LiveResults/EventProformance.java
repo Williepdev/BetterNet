@@ -1,7 +1,13 @@
-package Result.AttemptDoing;
+package LiveResults;
 
-import java.util.*;
-import java.io.*;
+import EventTypes.Event;
+import EventTypes.FieldEvents.FieldEvent;
+import EventTypes.TrackEvent;
+import MeetClasses.Meet;
+import PeopleTypes.Athlete;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class EventProformance implements Serializable{
     private static final long serialVersionUID = 1L;

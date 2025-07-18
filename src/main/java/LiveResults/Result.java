@@ -1,7 +1,9 @@
-package Result.AttemptDoing;
+package LiveResults;
 
-import java.util.*;
-import java.io.*;
+import EventTypes.Event;
+import PeopleTypes.Athlete;
+
+import java.io.Serializable;
 public class Result implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -13,7 +15,7 @@ public class Result implements Serializable{
 
     
     public Result(Athlete athlete, Event event, double proformance,
-    String status, String advancedStatus)
+                  String status, String advancedStatus)
     {
         if(proformance < 0)
         {

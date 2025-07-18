@@ -1,7 +1,11 @@
 package TeamTypes;
 
-import java.util.*;
-import java.io.*;
+import PeopleTypes.Athlete;
+import PeopleTypes.Coach;
+import PeopleTypes.Person;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 public abstract class Team implements Serializable{
     private static final long serialVersionUID = 1L;
 

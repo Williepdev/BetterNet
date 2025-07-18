@@ -1,11 +1,19 @@
-package athleteTypes;
+package AthleteTypes;
 
-import java.util.*;
-import java.io.*;
-public class DistanceRunner extends Runner implements Serializable{
+import EventTypes.Relay;
+import EventTypes.TrackEvent;
+import LiveResults.EventProformance;
+import LiveResults.Result;
+import PeopleTypes.Athlete;
+import TeamTypes.Team;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Runner extends Athlete implements Serializable{
     private static final long serialVersionUID = 1L;
-
-    public DistanceRunner(String name, String userName, Team team, String gender, ArrayList<Result> results, ArrayList<EventProformance> attempts)
+    public Runner(String name, String userName, Team team, String gender,
+                  ArrayList<Result> results, ArrayList<EventProformance> attempts)
     {
         super(name, userName, team, gender, results, attempts);
     }

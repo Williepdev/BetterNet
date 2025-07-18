@@ -1,7 +1,11 @@
-package athleteTypes;
+package AthleteTypes;
 
-import java.util.*;
-import java.io.*;
+import LiveResults.EventProformance;
+import LiveResults.Result;
+import TeamTypes.Team;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 /*due to my lack of knowledge on decathalon scoring
  the score table and the equations for calculation 
 those will be provided by nrich.maths.org/articles/decathlon-art-scoring-points*/

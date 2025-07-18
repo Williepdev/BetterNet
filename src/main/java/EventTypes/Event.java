@@ -1,7 +1,11 @@
 package EventTypes;
 
-import java.util.*;
-import java.io.*;
+import EventDivision.EventDivision;
+import LiveResults.EventResults;
+import LiveResults.Result;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class Event implements Serializable{
     private static final long serialVersionUID = 1L;

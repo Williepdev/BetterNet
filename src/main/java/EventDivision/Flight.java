@@ -1,7 +1,10 @@
 package EventDivision;
 
-import java.util.*;
-import java.io.*;
+import EventTypes.Event;
+import LiveResults.EventEntry;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Flight extends EventDivision implements Serializable{
     private static final long serialVersionUID = 1L;

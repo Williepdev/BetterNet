@@ -1,7 +1,14 @@
-package athleteTypes;
+package AthleteTypes;
 
-import java.util.*;
-import java.io.*;
+import EventTypes.FieldEvents.ThrowEvent;
+import EventTypes.Relay;
+import LiveResults.EventProformance;
+import LiveResults.Result;
+import PeopleTypes.Athlete;
+import TeamTypes.TrackTeam;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Thrower extends Athlete implements Serializable{
     private static final long serialVersionUID = 1L;

@@ -1,7 +1,10 @@
 package EventTypes;
 
-import java.util.*;
-import java.io.*;
+import EventDivision.Heat;
+import PeopleTypes.Athlete;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Relay extends TrackEvent implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -13,7 +16,7 @@ public class Relay extends TrackEvent implements Serializable{
     private int fourthLeg;
     
     public Relay(String name, String gender, String unitType, ArrayList<Heat> heats, int distance,
-    ArrayList<Athlete> relayTeam, int firstLeg, int secondLeg, int thirdLeg, int fourthLeg)
+                 ArrayList<Athlete> relayTeam, int firstLeg, int secondLeg, int thirdLeg, int fourthLeg)
     {
         //unit type secs/minutes
         super(name, gender, unitType, heats, distance);

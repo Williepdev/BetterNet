@@ -1,7 +1,10 @@
-package Result.AttemptDoing;
+package LiveResults;
 
-import java.io.*;
-import java.util.*;
+import EventTypes.Event;
+import PeopleTypes.Athlete;
+import TeamTypes.Team;
+
+import java.io.Serializable;
 
 public class EventEntry implements Serializable{
     private static final long serialVersionUID = 1L;

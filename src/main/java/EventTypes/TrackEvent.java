@@ -1,7 +1,10 @@
 package EventTypes;
 
-import java.util.*;
-import java.io.*;
+import EventDivision.EventDivision;
+import EventDivision.Heat;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class TrackEvent extends Event implements Serializable{
     private static final long serialVersionUID = 1L;

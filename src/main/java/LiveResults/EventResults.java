@@ -1,7 +1,11 @@
-package Result.AttemptDoing;
+package LiveResults;
 
-import java.util.*;
-import java.io.*;
+import EventTypes.Event;
+import EventTypes.FieldEvents.FieldEvent;
+import EventTypes.TrackEvent;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 public class EventResults implements Serializable{
     private static final long serialVersionUID = 1L;
     //event while running or completed

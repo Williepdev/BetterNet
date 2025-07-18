@@ -1,7 +1,12 @@
-package athleteTypes;
+package AthleteTypes;
 
-import java.util.*;
-import java.io.*;
+import LiveResults.EventProformance;
+import LiveResults.Result;
+import PeopleTypes.Athlete;
+import TeamTypes.Team;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MultiEventAthlete extends Athlete implements Serializable{
     private static final long serialVersionUID = 1L;
