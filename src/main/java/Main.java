@@ -1,31 +1,67 @@
+import AthleteTypes.*;
+import EventTypes.Event;
+import EventTypes.FieldEvents.JumpEvents.HorizontalJump;
+import EventTypes.FieldEvents.JumpEvents.VerticalJump;
+import EventTypes.FieldEvents.ThrowEvent;
+import EventTypes.TrackEvent;
+import MeetClasses.Meet;
+import TeamTypes.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 public class Main
 {
-    public static void main(String[] args)
-    {
-        DataStorer data = DataManager.load();
-        Scanner input = new Scanner(System.in);
-        File myFile = new File("test.txt");
-        
-        ArrayList<String> divisions = new ArrayList<>();
-        divisions.add("Class MM");
-        divisions.add("CIAC");
-        divisions.add("SCC");
-        
-       /* Team guilford = new OutdoorTeam(new ArrayList<Athlete>(), new ArrayList<Coach>(), "Guilford Track & Field", "High School", divisions);
-        Athlete ethan = new DecethaAthlete("Ethan wineKamp", "EWinekamp", guilford, "Male", new ArrayList<Result>(), new ArrayList<EventProformance>());//using someone off team to show an example, sorry just really easy to
-        Event onehundredmeter = new TrackEvent("100M", "Male", "Seconds", new ArrayList<Heat>(), 100);
-        ethan.addResult(new Result(ethan, onehundredmeter, 11.28, "Completed", "N/A"));
-        */printCredits();
-        
-        //run();
-        DataManager.save(data);
-    }
-    
+        public static void main (String[]args){
+            Scanner input = new Scanner(System.in);
+            ArrayList<Team> teams = new ArrayList<>();
+            ArrayList<Event> events = new ArrayList<>();
+            ArrayList<Meet> meets = new ArrayList<>();
+
+            System.out.println("Welcome to BetterNet, your alternative to Athletic.net!");
+
+            boolean running = true;
+            while (running) {
+                System.out.println("\nMain Menu:");
+                System.out.println("1. Create Team");
+                System.out.println("2. Create Athlete");
+                System.out.println("3. Create Event");
+                System.out.println("4. Create Meet");
+                System.out.println("5. View Data");
+                System.out.println("6. Exit");
+                System.out.print("Enter your choice: ");
+                String choice = input.nextLine();
+
+                switch (choice) {
+                    case "1":
+                        teams.add(createTeam(input));
+                        break;
+                    case "2":
+                        createAthlete(input, teams);
+                        break;
+                    case "3":
+                        events.add(createEvent(input));
+                        break;
+                    case "4":
+                        meets.add(createMeet(input, teams, events));
+                        break;
+                    case "5":
+                        viewData(teams, events, meets);
+                        break;
+                    case "6":
+                        running = false;
+                        System.out.println("Exiting... Thank you for using BetterNet!");
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            }
+        }
+
+
     public static void createFile(File myFile)
     {
         try
@@ -36,16 +72,16 @@ public class Main
             }
             else
                 System.out.println("File already exists");
-        } 
+        }
         catch(IOException e)
         {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
 
-        
+
     }
-    
+
     public static void printFile(File myFile)
     {
         try
@@ -56,7 +92,7 @@ public class Main
                 String data = reader.nextLine();
                 System.out.println(data);
             }
-        
+
         reader.close();
         }
         catch(FileNotFoundException e)
@@ -65,72 +101,187 @@ public class Main
             e.printStackTrace();
         }
     }
-    /*
-    public static void run()
+    private static Team createTeam(Scanner input)
     {
-        Scanner input = new Scanner(System.in);
-        
-        System.out.println("Welcome to BetterNet, your Java Better Alternative to Athletic.net the website your sport relies on that never works");
-        boolean in = true;
-        while(in)
-        {
-            System.out.println("If you would like to create data, Type in NEW, If you have prexisting data and would like to search, Type SEARCH");
-            String newOrSearch = input.nextLine();
-            
-            if(newOrSearch.equals("NEW"))
-            {
-                System.out.println("first in order to make anything work you must create a team");
-                System.out.println("What would you like to call this team");
-                String teamName = input.nextLine();
-                System.out.println("What is the teams level? Ex) Club, Collegiate, High School");
-                String teamLevel = input.nextLine();
-                System.out.println("What are the teams divisions? Format like this: SCC, CIAC, ClASS MM, etc");
-                String divisions = input.nextLine();
-                ArrayList<String> division = new ArrayList<>();
-                for(int i = 0; i < divisions.length(); i++)
-                {
-                    String temp = "";
-                    
-                    temp = divisions.substring(0, divisions.indexof(","));
-                    division.add(temp);
-                    
-                    divisions = divisions.substring(divisions.indexof(",") + 1);
-                }
-                
-                
-                
-                String type = input.nextLine();
-                if(type.equals("Athlete"))
-                {
-                    System.out.println("1. MultiEventAthlete\n 2. DecethAthlete\n 3. Jumper\n 4. Runner\n 5. Thrower\n 6. DistanceRunner");
-                    String athleteType = input.nextLine();
-                    if(athleteType.equals("MultiEventAthlete"))
-                    {
-                        System.out.println("What is The Name of This Athlete");
-                        String name = input.nextLine();
-                        System.out.println("What is The UserName of This Athlete");
-                        String userName = input.nextLine();
-                        System.out.println("What is The Athletes gender, MALE OR FEMALE");
-                        String gender = input.nextLine();
-                        System.out.println("What is this athletes teams name");
-                        String teamName = input.nextLine();
-                        System.out.println("What is the ");
-                    }
-                }
-            }
-            else if(newOrSearch.equals("SEARCH"))
-            {
-                System.out.println("Type the name of the file you would like to search for");
-                String fileName = input.nextLine();
-                //to Implement later
-            }
-            else
-                throw new IllegalArgumentException("Error Invalid type");
+        System.out.print("Enter team name: ");
+        String name = input.nextLine();
+        System.out.print("Enter team level (e.g., High School, Collegiate): ");
+        String level = input.nextLine();
+        System.out.print("Enter team divisions (comma-separated): ");
+        String divisionsInput = input.nextLine();
+        ArrayList<String> divisions = new ArrayList<>();
+        for (String division : divisionsInput.split(",")) {
+            divisions.add(division.trim());
         }
-        printCredits();
-        
+
+        System.out.println("Select team type:");
+        System.out.println("1. Outdoor Team");
+        System.out.println("2. Indoor Team");
+        System.out.println("3. Cross Country Team");
+        System.out.print("Enter your choice: ");
+        String type = input.nextLine();
+
+        switch (type)
+        {
+            case "1":
+                return new OutdoorTeam(new ArrayList<>(), new ArrayList<>(), name, level, divisions);
+            case "2":
+                return new IndoorTeam(new ArrayList<>(), new ArrayList<>(), name, level, divisions);
+            case "3":
+                return new CrossCountryTeam(new ArrayList<>(), new ArrayList<>(), name, level, divisions);
+            default:
+                System.out.println("Invalid team type. Team not created.");
+                return null;
+        }
     }
-    */
+
+    private static void createAthlete(Scanner input, ArrayList<Team> teams)
+    {
+        if (teams.isEmpty())
+        {
+            System.out.println("No teams available. Create a team first.");
+            return;
+        }
+
+        System.out.println("\nSelect Athlete Type:");
+        System.out.println("1. MultiEventAthlete");
+        System.out.println("2. DecethaAthlete");
+        System.out.println("3. Jumper");
+        System.out.println("4. Runner");
+        System.out.println("5. Thrower");
+        System.out.println("6. DistanceRunner");
+        System.out.print("Enter your choice: ");
+        String choice = input.nextLine();
+
+        System.out.print("Enter athlete name: ");
+        String name = input.nextLine();
+        System.out.print("Enter athlete username: ");
+        String username = input.nextLine();
+        System.out.print("Enter athlete gender (Male/Female): ");
+        String gender = input.nextLine();
+
+        System.out.println("Select a team for the athlete:");
+        for (int i = 0; i < teams.size(); i++)
+        {
+            System.out.println((i + 1) + ". " + teams.get(i).getName());
+        }
+        System.out.print("Enter your choice: ");
+        int teamIndex = Integer.parseInt(input.nextLine()) - 1;
+        Team team = teams.get(teamIndex);
+
+        switch (choice)
+        {
+            case "1":
+                team.addAthlete(new MultiEventAthlete(name, username, team, gender, new ArrayList<>(), new ArrayList<>()));
+                break;
+            case "2":
+                team.addAthlete(new DecethaAthlete(name, username, team, gender, new ArrayList<>(), new ArrayList<>()));
+                break;
+            case "3":
+                team.addAthlete(new Jumper(name, username, team, gender, new ArrayList<>(), new ArrayList<>()));
+                break;
+            case "4":
+                team.addAthlete(new Runner(name, username, team, gender, new ArrayList<>(), new ArrayList<>()));
+                break;
+            case "5":
+                team.addAthlete(new Thrower(name, username, (TrackTeam) team, gender, new ArrayList<>(), new ArrayList<>()));
+                break;
+            case "6":
+                team.addAthlete(new DistanceRunner(name, username, team, gender, new ArrayList<>(), new ArrayList<>()));
+                break;
+            default:
+                System.out.println("Invalid choice. Athlete not created.");
+        }
+    }
+
+    private static Event createEvent(Scanner input)
+    {
+        System.out.println("\nSelect Event Type:");
+        System.out.println("1. Track Event");
+        System.out.println("2. Throw Event");
+        System.out.println("3. Horizontal Jump");
+        System.out.println("4. Vertical Jump");
+        System.out.print("Enter your choice: ");
+        String choice = input.nextLine();
+
+        System.out.print("Enter event name: ");
+        String name = input.nextLine();
+        System.out.print("Enter event gender (Male/Female): ");
+        String gender = input.nextLine();
+        System.out.print("Enter event units (e.g., Seconds, Meters): ");
+        String units = input.nextLine();
+
+        switch (choice)
+        {
+            case "1":
+                return new TrackEvent(name, gender, units, new ArrayList<>(), 100);
+            case "2":
+                return new ThrowEvent(name, gender, units, new ArrayList<>(), 3);
+            case "3":
+                return new HorizontalJump(name, gender, units, new ArrayList<>(), 3);
+            case "4":
+                return new VerticalJump(name, gender, units, new ArrayList<>(), 3, 1.5);
+            default:
+                System.out.println("Invalid choice. Event not created.");
+                return null;
+        }
+    }
+
+    private static Meet createMeet(Scanner input, ArrayList<Team> teams, ArrayList<Event> events)
+    {
+        if (teams.isEmpty() || events.isEmpty()) {
+            System.out.println("No teams or events available. Create them first.");
+            return null;
+        }
+
+        System.out.print("Enter meet name: ");
+        String name = input.nextLine();
+        System.out.print("Enter meet location: ");
+        String location = input.nextLine();
+        System.out.print("Enter meet type (INVITE/DUEL/TRI): ");
+        String type = input.nextLine();
+
+        ArrayList<Team> selectedTeams = new ArrayList<>();
+        System.out.println("Select teams for the meet (comma-separated indices):");
+        for (int i = 0; i < teams.size(); i++) {
+            System.out.println((i + 1) + ". " + teams.get(i).getName());
+        }
+        String[] teamIndices = input.nextLine().split(",");
+        for (String index : teamIndices) {
+            selectedTeams.add(teams.get(Integer.parseInt(index.trim()) - 1));
+        }
+
+        ArrayList<Event> selectedEvents = new ArrayList<>();
+        System.out.println("Select events for the meet (comma-separated indices):");
+        for (int i = 0; i < events.size(); i++) {
+            System.out.println((i + 1) + ". " + events.get(i).getName());
+        }
+        String[] eventIndices = input.nextLine().split(",");
+        for (String index : eventIndices) {
+            selectedEvents.add(events.get(Integer.parseInt(index.trim()) - 1));
+        }
+
+        return new Meet(name, location, new Date(), selectedTeams, selectedEvents, type);
+    }
+
+    private static void viewData(ArrayList<Team> teams, ArrayList<Event> events, ArrayList<Meet> meets)
+    {
+        System.out.println("\nTeams:");
+        for (Team team : teams) {
+            System.out.println("- " + team.getName());
+        }
+
+        System.out.println("\nEvents:");
+        for (Event event : events) {
+            System.out.println("- " + event.getName());
+        }
+
+        System.out.println("\nMeets:");
+        for (Meet meet : meets) {
+            System.out.println("- " + meet);
+        }
+    }
+
     public static void printCredits()
     {
         System.out.println("Thank you for using this platform");

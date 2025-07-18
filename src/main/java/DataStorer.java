@@ -27,6 +27,42 @@ public class DataStorer implements Serializable{
         coaches = new ArrayList<>();
         results = new ArrayList<>();
     }
+
+    public DataStorer(ArrayList<Athlete> athletes, ArrayList<Team> teams, ArrayList<Meet> meets, ArrayList<Person> people, ArrayList<Coach> coaches, ArrayList<EventProformance> results)
+    {
+        this.athletes = athletes;
+        this.teams = teams;
+        this.meets = meets;
+        this.people = people;
+        this.coaches = coaches;
+        this.results = results;
+    }
+
+    public ArrayList<Athlete> getAthletes() {
+        return athletes;
+    }
+
+    public ArrayList<Team> getTeams() {
+        return teams;
+    }
+
+    public ArrayList<Meet> getMeets() {
+        return meets;
+    }
+
+    public ArrayList<Person> getPeople() {
+        return people;
+    }
+
+    public ArrayList<Coach> getCoaches() {
+        return coaches;
+    }
+
+    public ArrayList<EventProformance> getResults() {
+        return results;
+    }
+
+
     
     
 }
