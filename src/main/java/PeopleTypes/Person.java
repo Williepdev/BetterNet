@@ -6,7 +6,7 @@ public abstract class Person implements Serializable{
 
 protected String name;
 protected String userName;
-private static int id;
+private int id;
 protected String gender;
 
     public Person(String name, String userName, String gender)
@@ -28,7 +28,7 @@ protected String gender;
         userName = name;
         if(!(gender.equals("Male") || gender.equals("Female")))
         {
-            throw new IllegalArgumentException("Error, gender must be explicitly \"Male\" or \"Female\" this is key for the sucess of the program");
+            throw new IllegalArgumentException("Error, gender must be explicitly \"Male\" or \"Female\" this is key for the success of the program");
         }
         else
             this.gender = gender;
