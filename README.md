@@ -28,27 +28,27 @@ and as my coach was not able to access it, but this could be a possible thing to
 
 
 ### Current features
--athlete management
--team management
--stat viewing
--team viewing
--duel meet scoring
--meets
--live results (sort of)
--Decathalon calculator(male only, womens heptathalon to be implemented)
--invite scoring
--Scanner UI
--advanced status (sector foul, circle foul, other reasons)
+athlete management
+team management
+stat viewing
+team viewing
+duel meet scoring
+meets
+live results (sort of)
+Decathalon calculator(male only, womens heptathalon to be implemented)
+invite scoring
+Scanner UI
+advanced status (sector foul, circle foul, other reasons)
 
 
 ### Scraped features(from original scope)
--File importing/reading (due to the files not easily being acessable by coaches and putting perticipation at risk if I were to grab the files)
--Enum implementation(replaced with in depth classes and inheirtence)
+File importing/reading (due to the files not easily being acessable by coaches and putting perticipation at risk if I were to grab the files)
+Enum implementation(replaced with in depth classes and inheirtence)
 
 
 ### Future features(to implement)
--Goal tracking
--Rankings by event, age, state, division, team
--Standard tracking
--Heptathalon calculator(if a DecethaAthlete object has the String gender "Female")
--
+Goal tracking
+Rankings by event, age, state, division, team
+Standard tracking
+Heptathalon calculator(if a DecethaAthlete object has the String gender "Female")
+
