@@ -10,6 +10,7 @@ and is not easily acessabile to use, and the best features are priced behind a p
 and the only good platform just does not go in depth enough or make it easy to get the
 jist of a meet or athlete, and does not provide the extra info needed to help people improve
 
+
 ### Problems I encountered and how I got around them
 I really did and didn't have a lot of problems in this project, but a huge long part of the project
 was Implementing 34 classes, which is a ton on its own but especially when we have done 4 at most before this.
@@ -24,6 +25,7 @@ encapsulates the previous. Another huge problem I encountered was with file hand
 file handling from the project as Athletic.net actually lets you export files, but only for some coaches and meet
 managers, and if you do it through a third party it puts your perticipation at risk in the sport, as this company really has a monopoly
 and as my coach was not able to access it, but this could be a possible thing to add l
+
 
 ### Current features
 -athlete management
@@ -42,6 +44,7 @@ and as my coach was not able to access it, but this could be a possible thing to
 ### Scraped features(from original scope)
 -File importing/reading (due to the files not easily being acessable by coaches and putting perticipation at risk if I were to grab the files)
 -Enum implementation(replaced with in depth classes and inheirtence)
+
 
 ### Future features(to implement)
 -Goal tracking
