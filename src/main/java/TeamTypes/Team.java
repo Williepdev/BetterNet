@@ -1,5 +1,6 @@
 package TeamTypes;
 
+import LiveResults.Division;
 import PeopleTypes.Athlete;
 import PeopleTypes.Coach;
 import PeopleTypes.Person;
@@ -14,10 +15,10 @@ public abstract class Team implements Serializable{
     protected ArrayList<Person> teamMembers;
     protected String name;
     protected String teamLevel;//club, collegiate, 
-    protected ArrayList<String> divisions;//scc, class mm, etc
+    protected ArrayList<Division> divisions;//scc, class mm, etc
     
     public Team(ArrayList<Athlete> roster, ArrayList<Coach> coaches,
-    String name, String teamLevel, ArrayList<String> divisions)
+    String name, String teamLevel, ArrayList<Division> divisions)
     {
         this.roster = roster;
         this.coaches = coaches;
@@ -25,6 +26,7 @@ public abstract class Team implements Serializable{
         this.teamLevel = teamLevel;
         this.divisions = divisions;
         teamMembers = new ArrayList<Person>();
+
         for(int i = 0; i < roster.size(); i++)
         {
             teamMembers.add(roster.get(i));
@@ -43,15 +45,19 @@ public abstract class Team implements Serializable{
     public void addAthlete(Athlete a)
     {
         roster.add(a);
+        teamMembers.add(a);
     }
     
     public void addCoach(Coach c)
     {
         coaches.add(c);
+        teamMembers.add(c);
     }
     
     public ArrayList<Athlete> getRoster()
     {
         return roster;
     }
+
+
 }

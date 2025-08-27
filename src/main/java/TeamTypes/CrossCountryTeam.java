@@ -1,5 +1,6 @@
 package TeamTypes;
 
+import LiveResults.Division;
 import PeopleTypes.Athlete;
 import PeopleTypes.Coach;
 import AthleteTypes.DistanceRunner;
@@ -11,7 +12,7 @@ public class CrossCountryTeam extends Team implements Serializable{
     private ArrayList<DistanceRunner> roster;
 
     public CrossCountryTeam(ArrayList<DistanceRunner> roster, ArrayList<Coach> coaches,
-    String name, String teamLevel, ArrayList<String> divisions)
+    String name, String teamLevel, ArrayList<Division> divisions)
     {
         super(new ArrayList<Athlete>(roster), coaches, name, teamLevel, divisions);
     }

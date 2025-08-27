@@ -5,14 +5,14 @@ import EventTypes.Relay;
 import LiveResults.EventProformance;
 import LiveResults.Result;
 import PeopleTypes.Athlete;
-import TeamTypes.TrackTeam;
+import TeamTypes.Team;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Thrower extends Athlete implements Serializable{
     private static final long serialVersionUID = 1L;
-    public Thrower(String name, String userName, TrackTeam team, String gender, ArrayList<Result> results, ArrayList<EventProformance> attempts)
+    public Thrower(String name, String userName, Team team, String gender, ArrayList<Result> results, ArrayList<EventProformance> attempts)
     {
         super(name, userName, team, gender, results, attempts);
         //results contains only coint result of ThrowEvents

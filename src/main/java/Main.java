@@ -1,6 +1,9 @@
-import AthleteTypes.DistanceRunner;
-import AthleteTypes.MultiEventAthlete;
+import AthleteTypes.*;
+import LiveResults.Division;
 import PeopleTypes.Person;
+import TeamTypes.CrossCountryTeam;
+import TeamTypes.IndoorTeam;
+import TeamTypes.OutdoorTeam;
 import TeamTypes.Team;
 
 import java.io.IOException;
@@ -42,7 +45,7 @@ public class Main {
                     case 3:
 
                     case 4:
-
+                        break;
                     case 5:
                         printCredits();
 
@@ -72,7 +75,7 @@ public class Main {
                 case 1:
                     createPerson();
                 case 2:
-
+                    createTeam();
                 case 3:
                     createMeet();
                 case 4:
@@ -99,6 +102,81 @@ public class Main {
         return teamList.get(in - 1);
 
     }
+
+    public static void createTeam()
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("What is the name of the team you want to create?");
+        String teamName = input.nextLine();
+        System.out.println("What level is your team? Ex) High School, Collegiate, etc");
+        String teamLevel = input.nextLine();
+        System.out.println("What divisions and leagues is your team in?(Separate by commas)");
+        String divisions = input.nextLine();
+        ArrayList<Division> divisionsList = divisionsToList(divisions);
+        System.out.println("Is this a Cross Country, Indoor Track, or Outdoor Track Team? Type as written in the question");
+        String teamType = input.nextLine();
+        while (true) {
+            try {
+                switch (teamType) {
+                    case "Cross Country":
+                        teamList.add(new CrossCountryTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
+                        break;
+                    case "Indoor Track":
+                        teamList.add(new IndoorTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
+                        break;
+                    case "Outdoor Track Team":
+                        teamList.add(new OutdoorTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
+                        break;
+                    default:
+                        throw new IOException("That is not an option please try again.");
+                }
+                break;
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("Team created successfully!, Now going back to main menu");
+        mainMenu();
+    }
+
+    public static ArrayList<Division> divisionsToList(String str)
+    {
+        ArrayList<Division> divisions = new ArrayList<>();
+
+        if(str.isEmpty())
+        {
+            return divisions;
+        }
+
+        if(str.indexOf(",") == -1 && !str.isEmpty())
+        {
+            divisions.add(new Division(str));
+            return divisions;
+        }
+
+        divisions.add(new Division((str.substring(0, str.indexOf(",")))));
+        return divisionsToList(str.substring(str.indexOf(",") + 1), divisions);
+    }
+
+    public static ArrayList<Division> divisionsToList(String str, ArrayList<Division> divisions)
+    {
+
+        if(str.isEmpty())
+        {
+            return divisions;
+        }
+
+        if(str.indexOf(",") == -1 && !str.isEmpty())
+        {
+            divisions.add(new Division(str));
+            return divisions;
+        }
+
+        divisions.add(new Division(str.substring(0, str.indexOf(","))));
+        return divisionsToList(str.substring(str.indexOf(",") + 1), divisions);
+
+    }
+
 
     public static void createPerson()
     {
@@ -152,14 +230,9 @@ public class Main {
         System.out.println("3. Runner");
         System.out.println("4. Thrower");
         System.out.println("5. Jumper");
-        if(gender.equals("Male"))
-        {
-            System.out.println("6. Decathlete");
-        }
-        else if(gender.equals("Female"))
-        {
-            System.out.println("6. Heptathlete");
-        }
+        System.out.println("6. Decathlete");
+        System.out.println("7. Heptathlete");
+
 
         System.out.println("Enter your choice: ");
         try {
@@ -170,22 +243,29 @@ public class Main {
                 case 2:
                     Person b = new DistanceRunner(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
                 case 3:
-
+                    Person c = new Runner(name,  userName, team, gender, new ArrayList<>(), new ArrayList<>());
                 case 4:
-
+                    Person d = new Thrower(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
                 case 5:
-
+                    Person e = new Jumper(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
                 case 6:
+                    Person f = new DecethaAthlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
+                case 7:
 
+                default:
+                    throw new IOException("That is not an option, try again please");
             }
         }
-
-
+        catch(Exception e) {
+            System.out.println(e.getMessage());
+            createAthlete(name, gender, userName, team);
+        }
     }
 
     public static void createMeet()
     {
         Scanner input = new Scanner(System.in);
+
     }
 
 
