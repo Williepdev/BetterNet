@@ -10,6 +10,7 @@ and is not easily acessabile to use, and the best features are priced behind a p
 and the only good platform just does not go in depth enough or make it easy to get the
 jist of a meet or athlete, and does not provide the extra info needed to help people improve
 
+
 ### Problems I encountered and how I got around them
 I really did and didn't have a lot of problems in this project, but a huge long part of the project
 was Implementing 34 classes, which is a ton on its own but especially when we have done 4 at most before this.
@@ -25,27 +26,29 @@ file handling from the project as Athletic.net actually lets you export files, b
 managers, and if you do it through a third party it puts your perticipation at risk in the sport, as this company really has a monopoly
 and as my coach was not able to access it, but this could be a possible thing to add l
 
+
 ### Current features
--athlete management
--team management
--stat viewing
--team viewing
--duel meet scoring
--meets
--live results (sort of)
--Decathalon calculator(male only, womens heptathalon to be implemented)
--invite scoring
--Scanner UI
--advanced status (sector foul, circle foul, other reasons)
+athlete management
+team management
+stat viewing
+team viewing
+duel meet scoring
+meets
+live results (sort of)
+Decathalon calculator(male only, womens heptathalon to be implemented)
+invite scoring
+Scanner UI
+advanced status (sector foul, circle foul, other reasons)
 
 
 ### Scraped features(from original scope)
--File importing/reading (due to the files not easily being acessable by coaches and putting perticipation at risk if I were to grab the files)
--Enum implementation(replaced with in depth classes and inheirtence)
+File importing/reading (due to the files not easily being acessable by coaches and putting perticipation at risk if I were to grab the files)
+Enum implementation(replaced with in depth classes and inheirtence)
+
 
 ### Future features(to implement)
--Goal tracking
--Rankings by event, age, state, division, team
--Standard tracking
--Heptathalon calculator(if a DecethaAthlete object has the String gender "Female")
--
+Goal tracking
+Rankings by event, age, state, division, team
+Standard tracking
+Heptathalon calculator(if a DecethaAthlete object has the String gender "Female")
+
