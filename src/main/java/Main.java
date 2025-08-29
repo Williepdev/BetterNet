@@ -1,4 +1,5 @@
 import AthleteTypes.*;
+import EventTypes.Event;
 import LiveResults.Division;
 import PeopleTypes.Person;
 import TeamTypes.CrossCountryTeam;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class Main {
 
     public static ArrayList<Team> teamList = new ArrayList<>();
+    public static ArrayList<Person> persons = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -115,25 +117,24 @@ public class Main {
         ArrayList<Division> divisionsList = divisionsToList(divisions);
         System.out.println("Is this a Cross Country, Indoor Track, or Outdoor Track Team? Type as written in the question");
         String teamType = input.nextLine();
-        while (true) {
             try {
                 switch (teamType) {
                     case "Cross Country":
                         teamList.add(new CrossCountryTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
-                        break;
-                    case "Indoor Track":
+                        
+                    case "Indoor":
                         teamList.add(new IndoorTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
-                        break;
-                    case "Outdoor Track Team":
+                        
+                    case "Outdoor":
                         teamList.add(new OutdoorTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
                         break;
                     default:
                         throw new IOException("That is not an option please try again.");
                 }
-                break;
             } catch (IOException e) {
                 System.out.println(e.getMessage());
-            }
+                createTeam();
+            
         }
         System.out.println("Team created successfully!, Now going back to main menu");
         mainMenu();
@@ -222,7 +223,7 @@ public class Main {
 
     public static void createAthlete(String name, String gender, String userName, Team team)
     {
-        Scanner  input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         System.out.println("Welcome to the Athlete Creation menu");
         System.out.println("What kind of Athlete you want to create?");
         System.out.println("1. MultiEventAthlete");
@@ -251,7 +252,7 @@ public class Main {
                 case 6:
                     Person f = new DecethaAthlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
                 case 7:
-
+                    Person g = new Heptathathlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
                 default:
                     throw new IOException("That is not an option, try again please");
             }
@@ -260,6 +261,8 @@ public class Main {
             System.out.println(e.getMessage());
             createAthlete(name, gender, userName, team);
         }
+
+        System.out.println("Athlete Created Successfully!");
     }
 
     public static void createMeet()

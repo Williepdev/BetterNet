@@ -54,7 +54,7 @@ public int calculateScore()//also works to get Womens Heptathalon score
         int points = 0;
         String[] events = {};
         double[][] scoreTable = {};
-        return  points;
+        return points;
     }
 }
 
