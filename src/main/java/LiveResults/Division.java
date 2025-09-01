@@ -31,4 +31,8 @@ public class Division implements Serializable {
     public void addTeam(Team team) {
         teams.add(team);
     }
+
+    public String toString() {
+        return name + "is made up of " + teams;
+    }
 }

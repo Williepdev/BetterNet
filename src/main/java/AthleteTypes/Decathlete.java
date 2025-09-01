@@ -11,10 +11,10 @@ import java.util.ArrayList;
  the score table and the equations for calculation 
 those will be provided by nrich.maths.org/articles/decathlon-art-scoring-points*/
 
-public class DecethaAthlete extends AllAthlete implements Serializable{
+public class Decathlete extends AllAthlete implements Serializable{
     private static final long serialVersionUID = 1L;
     
-public DecethaAthlete(String name, String userName, Team team, ArrayList<Result> results, ArrayList<EventProformance> attempts)
+public Decathlete(String name, String userName, Team team, ArrayList<Result> results, ArrayList<EventProformance> attempts)
 {
     //results at least stores prs for all 10 decathalon events
     //no Result in ArrayList Resullt should be noMark or null, if it is the only entry in that event.

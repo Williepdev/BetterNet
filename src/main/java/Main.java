@@ -233,26 +233,31 @@ public class Main {
         System.out.println("5. Jumper");
         System.out.println("6. Decathlete");
         System.out.println("7. Heptathlete");
-
-
         System.out.println("Enter your choice: ");
         try {
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
                     Person a = new MultiEventAthlete(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
+                    persons.add(a);
                 case 2:
                     Person b = new DistanceRunner(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
+                    persons.add(b);
                 case 3:
                     Person c = new Runner(name,  userName, team, gender, new ArrayList<>(), new ArrayList<>());
+                    persons.add(c);
                 case 4:
                     Person d = new Thrower(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
+                    persons.add(d);
                 case 5:
                     Person e = new Jumper(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
+                    persons.add(e);
                 case 6:
-                    Person f = new DecethaAthlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
+                    Person f = new Decathlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
+                    persons.add(f);
                 case 7:
-                    Person g = new Heptathathlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
+                    Person g = new Heptathlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
+                    persons.add(g);
                 default:
                     throw new IOException("That is not an option, try again please");
             }
