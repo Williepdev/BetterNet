@@ -1,5 +1,4 @@
 import AthleteTypes.*;
-import EventTypes.Event;
 import LiveResults.Division;
 import PeopleTypes.Person;
 import TeamTypes.CrossCountryTeam;
@@ -8,7 +7,10 @@ import TeamTypes.OutdoorTeam;
 import TeamTypes.Team;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -273,8 +275,30 @@ public class Main {
     public static void createMeet()
     {
         Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to the Meet Creation menu");
+        System.out.println();
+
+        System.out.println("What is the name of the meet you want to create?");
+        String name = input.nextLine();
+
+        System.out.println("What is the date of this meet? type as (M/D/Y, Start time in 24 hour time)");
+        String date = input.nextLine();
+        // Format for M/D/Y, HH:mm
+        SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy, HH:mm");
+        formatter.setLenient(false); // prevents weird inputs like 2/30
+        try {
+            Date meetDate = formatter.parse(date);
+            System.out.println("Parsed Date: " + meetDate);
+        } catch (ParseException e) {
+            System.out.println("Invalid format. Please use M/D/Y, HH:mm (ex: 9/7/2025, 14:30)");
+            createMeet();
+        }
+
+
 
     }
+
+
 
 
 
