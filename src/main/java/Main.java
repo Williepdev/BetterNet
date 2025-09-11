@@ -7,6 +7,7 @@ import TeamTypes.OutdoorTeam;
 import TeamTypes.Team;
 
 import java.io.IOException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,45 @@ public class Main {
     public static ArrayList<Person> persons = new ArrayList<>();
 
     public static void main(String[] args) {
+        Connection connection = null;
+        try{
+            connection = DriverManager.getConnection("jdbc:sqlite:.db");
+            System.out.println("Opened database successfully");
+            Class.forName()
+
+            //CRUD
+
+            /*
+            //select
+            PreparedStatement ps = connection.prepareStatement("select * from USERS where name = ?");
+            ps.setString(1, "Marco");
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getInt("ID") + " - " + rs.getString("NAME")   );
+            }
+            //insert
+            PreparedStatement psInsert = connection.prepareStatement("insert into USERS (name) values (?)");
+            psInsert.setString(1, "John");
+            int insertCount = psInsert.executeUpdate();
+            System.out.println("insertcount : " + insertCount);
+            //updates
+            PreparedStatement updateps = connection.prepareStatement("update USERS set name = ? where name = ?");
+            updateps.setString(1, "John");
+            updateps.setString(2, "Michael");
+            int updateCount = psInsert.executeUpdate();
+            System.out.println("updatecount : " + updateCount);
+
+            //deletes
+            PreparedStatement delete = connection.prepareStatement("delete from USERS where name = ?");
+            delete.setString(1, "John");
+            int deleteCount = psInsert.executeUpdate();
+            System.out.println("deletecount : " + deleteCount);
+            */
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
         Scanner input = new Scanner(System.in);
         DataStorer data = DataManager.load();
         System.out.println("Welcome to BetterNet, your alternative to Athletic.net!");
@@ -336,6 +376,4 @@ public class Main {
         System.out.println("Decathalon scoring chart from nrich.maths.org");
         System.out.println("Duel/Tri meet scoring from https://sportmentary.com/track-field/track-field-basics/keep-score-track-field-meet/");
         System.out.println("Invintation scoring from  & https://centralconnecticutconference.org/ccc-regulations-indoor-track-g/");
-        System.out.println("Most Of the Things For DataManager and DataStorer were not done by me but used from forums and videos as I was cramming hard and the way I intended to go about this would not work well with my class structure");
-    }
-}
+        System.out.println("Most Of the Things For DataManager and DataStorer were not done by me but used from forums and videos as
