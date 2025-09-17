@@ -62,7 +62,7 @@ public class DataStorer implements Serializable{
         return results;
     }
 
-
+    public void listToTable()//puts java arraylist into an SQL table
     
     
 }

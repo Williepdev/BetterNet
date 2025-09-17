@@ -2,7 +2,7 @@ import java.io.*;
 
 public class DataManager {
 
-    private static final String FILE_NAME = "data.ser";
+    private static final String FILE_NAME = "";
     
     public static void save(DataStorer store)
     {
@@ -12,6 +12,7 @@ public class DataManager {
             System.out.println("Error saving data: " + e.getMessage());   
         }
     }
+    
     
     public static DataStorer load(){
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME))){
