@@ -2,25 +2,27 @@ import java.io.*;
 
 public class DataManager {
 
-    private static final String FILE_NAME = "";
-    
-    public static void save(DataStorer store)
-    {
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_NAME))){
+    private static final String FILE_NAME = "C:\\Users\\willi\\Documents\\BetterNet\\src\\main\\resources\\data.ser";
+
+    public static void save(DataStorer store) throws IOException {
+            FileOutputStream fileOut = new FileOutputStream(FILE_NAME);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(store);
-        } catch(IOException e){
-            System.out.println("Error saving data: " + e.getMessage());   
-        }
+            out.close();
+            fileOut.close();
     }
     
     
-    public static DataStorer load(){
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME))){
-            return (DataStorer) in.readObject();
-        } catch(IOException | ClassNotFoundException e){
-            System.out.println("No saved data found. Starting fresh");
-            return new DataStorer();
-        }
+    public static DataStorer load() throws IOException, ClassNotFoundException {
+
+        DataStorer store = null;
+
+        FileInputStream fileIn = new FileInputStream(FILE_NAME);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        store = (DataStorer) in.readObject();
+        in.close();
+        fileIn.close();
+        return store;
     }
 
 }

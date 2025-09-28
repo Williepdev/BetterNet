@@ -1,5 +1,6 @@
 import AthleteTypes.*;
 import LiveResults.Division;
+import PeopleTypes.Coach;
 import PeopleTypes.Person;
 import TeamTypes.CrossCountryTeam;
 import TeamTypes.IndoorTeam;
@@ -7,7 +8,9 @@ import TeamTypes.OutdoorTeam;
 import TeamTypes.Team;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,16 +19,15 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static ArrayList<Team> teamList = new ArrayList<>();
-    public static ArrayList<Person> persons = new ArrayList<>();
+    static DataStorer data = new DataStorer();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Connection connection = null;
-        try{
-            connection = DriverManager.getConnection("jdbc:sqlite:.db");
-            System.out.println("Opened database successfully");
-            Class.forName()
 
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:People.db");
+            System.out.println("Opened database successfully");
+            //PreparedStatement preparedStatement = connection.prepareStatement("");
             //CRUD
 
             /*
@@ -55,56 +57,71 @@ public class Main {
             int deleteCount = psInsert.executeUpdate();
             System.out.println("deletecount : " + deleteCount);
             */
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         Scanner input = new Scanner(System.in);
-        DataStorer data = DataManager.load();
+
         System.out.println("Welcome to BetterNet, your alternative to Athletic.net!");
         mainMenu();
+
+        saveData();
     }
 
+    public static void saveData()
+    {
+        try {
+            DataManager.save(data);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Saved");
+    }
 
     public static void mainMenu() {
 
-            Scanner input = new Scanner(System.in);
-            System.out.println("Welcome to the Main Menu");
-            System.out.println("1. Create");
-            System.out.println("2. Load");
-            System.out.println("3. Save");
-            System.out.println("4. Exit");
-            System.out.println("5. Credits");
-            System.out.println("Please enter your choice: ");
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to the Main Menu");
+        System.out.println("1. Create");
+        System.out.println("2. Load");
+        System.out.println("3. Save");
+        System.out.println("4. Exit");
+        System.out.println("5. Credits");
+        System.out.println("Please enter your choice: ");
 
-            try {
+        try {
 
-                int choice = input.nextInt();
+            int choice = input.nextInt();
 
-                switch (choice) {
-                    case 1:
-                        createMenu();
-                    case 2:
+            switch (choice) {
+                case 1:
+                    createMenu();
+                case 2:
+                    load();
+                case 3:
+                    saveData();
+                case 4:
+                    break;
+                case 5:
+                    printCredits();
 
-                    case 3:
-
-                    case 4:
-                        break;
-                    case 5:
-                        printCredits();
-
-                    default:
-                        throw new IOException("That is not an option, try again");
-                }
-            }catch(Exception e) {
-                System.out.println(e.getMessage());
-                mainMenu();
+                default:
+                    throw new IOException("That is not an option, try again");
             }
-
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            mainMenu();
+        }
     }
 
-    public static void createMenu()
+
+    public static void load()
     {
+        System.out.println(data);
+    }
+
+    public static void createMenu() {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Welcome to the Create Menu");
@@ -124,31 +141,28 @@ public class Main {
                     createMeet();
                 case 4:
                     mainMenu();
-                    default:
+                default:
                     throw new IOException("That is not an option, try again");
 
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             createMenu();
         }
     }
 
-    public static Team chooseTeam()
-    {
+    public static Team chooseTeam() {
         Scanner input = new Scanner(System.in);
         System.out.println("Please Select a Team.");
-        for(int i = 0; i < teamList.size(); i++)
-        {
-            System.out.println((i+1) + ". " + teamList.get(i).getName());
+        for (int i = 0; i < data.getTeams().size(); i++) {
+            System.out.println((i + 1) + ". " + data.getTeams().get(i).getName());
         }
         int in = input.nextInt();
-        return teamList.get(in - 1);
+        return data.getTeams().get(in - 1);
 
     }
 
-    public static void createTeam()
-    {
+    public static void createTeam() {
         Scanner input = new Scanner(System.in);
         System.out.println("What is the name of the team you want to create?");
         String teamName = input.nextLine();
@@ -159,40 +173,37 @@ public class Main {
         ArrayList<Division> divisionsList = divisionsToList(divisions);
         System.out.println("Is this a Cross Country, Indoor Track, or Outdoor Track Team? Type as written in the question");
         String teamType = input.nextLine();
-            try {
-                switch (teamType) {
-                    case "Cross Country":
-                        teamList.add(new CrossCountryTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
-                        
-                    case "Indoor":
-                        teamList.add(new IndoorTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
-                        
-                    case "Outdoor":
-                        teamList.add(new OutdoorTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
-                        break;
-                    default:
-                        throw new IOException("That is not an option please try again.");
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-                createTeam();
-            
+        try {
+            switch (teamType) {
+                case "Cross Country":
+                    data.getTeams().add(new CrossCountryTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
+
+                case "Indoor":
+                    data.getTeams().add(new IndoorTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
+
+                case "Outdoor":
+                    data.getTeams().add(new OutdoorTeam(new ArrayList<>(), new ArrayList<>(), teamName, teamLevel, divisionsList));
+                    break;
+                default:
+                    throw new IOException("That is not an option please try again.");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            createTeam();
+
         }
         System.out.println("Team created successfully!, Now going back to main menu");
         mainMenu();
     }
 
-    public static ArrayList<Division> divisionsToList(String str)
-    {
+    public static ArrayList<Division> divisionsToList(String str) {
         ArrayList<Division> divisions = new ArrayList<>();
 
-        if(str.isEmpty())
-        {
+        if (str.isEmpty()) {
             return divisions;
         }
 
-        if(str.indexOf(",") == -1 && !str.isEmpty())
-        {
+        if (str.indexOf(",") == -1 && !str.isEmpty()) {
             divisions.add(new Division(str));
             return divisions;
         }
@@ -201,16 +212,13 @@ public class Main {
         return divisionsToList(str.substring(str.indexOf(",") + 1), divisions);
     }
 
-    public static ArrayList<Division> divisionsToList(String str, ArrayList<Division> divisions)
-    {
+    public static ArrayList<Division> divisionsToList(String str, ArrayList<Division> divisions) {
 
-        if(str.isEmpty())
-        {
+        if (str.isEmpty()) {
             return divisions;
         }
 
-        if(str.indexOf(",") == -1 && !str.isEmpty())
-        {
+        if (str.indexOf(",") == -1 && !str.isEmpty()) {
             divisions.add(new Division(str));
             return divisions;
         }
@@ -221,12 +229,11 @@ public class Main {
     }
 
 
-    public static void createPerson()
-    {
+    public static void createPerson() {
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to the Person Creation menu");
         System.out.println();
-        if(!teamList.isEmpty()) {
+        if (!data.getTeams().isEmpty()) {
             System.out.println("Please enter full name: ");
             String name = input.nextLine();
             System.out.println("What is your gender");
@@ -243,7 +250,7 @@ public class Main {
                 String option = input.nextLine();
                 switch (option) {
                     case "Coach":
-
+                        data.people.add(new Coach(name, userName, gender, team,""));
                     case "Athlete":
                         createAthlete(name, gender, userName, team);
                     default:
@@ -253,18 +260,16 @@ public class Main {
                 System.out.println(e.getMessage());
                 createPerson();
             }
-        }
-        else
-        {
+        } else {
             System.out.println("You must create a team before you create a Person.");
             System.out.println();
             mainMenu();
         }
-
+        System.out.println("Person created");
+        mainMenu();
     }
 
-    public static void createAthlete(String name, String gender, String userName, Team team)
-    {
+    public static void createAthlete(String name, String gender, String userName, Team team) {
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to the Athlete Creation menu");
         System.out.println("What kind of Athlete you want to create?");
@@ -281,30 +286,29 @@ public class Main {
             switch (choice) {
                 case 1:
                     Person a = new MultiEventAthlete(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
-                    persons.add(a);
+                    data.people.add(a);
                 case 2:
                     Person b = new DistanceRunner(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
-                    persons.add(b);
+                    data.people.add(b);
                 case 3:
-                    Person c = new Runner(name,  userName, team, gender, new ArrayList<>(), new ArrayList<>());
-                    persons.add(c);
+                    Person c = new Runner(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
+                    data.people.add(c);
                 case 4:
                     Person d = new Thrower(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
-                    persons.add(d);
+                    data.people.add(d);
                 case 5:
                     Person e = new Jumper(name, userName, team, gender, new ArrayList<>(), new ArrayList<>());
-                    persons.add(e);
+                    data.people.add(e);
                 case 6:
                     Person f = new Decathlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
-                    persons.add(f);
+                    data.people.add(f);
                 case 7:
                     Person g = new Heptathlete(name, userName, team, new ArrayList<>(), new ArrayList<>());
-                    persons.add(g);
+                    data.people.add(g);
                 default:
                     throw new IOException("That is not an option, try again please");
             }
-        }
-        catch(Exception e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             createAthlete(name, gender, userName, team);
         }
@@ -312,8 +316,7 @@ public class Main {
         System.out.println("Athlete Created Successfully!");
     }
 
-    public static void createMeet()
-    {
+    public static void createMeet() {
         Scanner input = new Scanner(System.in);
         System.out.println("Welcome to the Meet Creation menu");
         System.out.println();
@@ -335,45 +338,41 @@ public class Main {
         }
 
 
-
     }
 
 
-
-
-
-    public static void printCredits()
-    {
+    public static void printCredits() {
         System.out.println("Thank you for using this platform");
         System.out.println();
-        
+
         System.out.println("Insperation from Athletic.net and from the Joe Kovacs podcast for the idea");
-        
+
         System.out.println();
         System.out.println();
         System.out.println();
-        
+
         System.out.println("CLI made by Willie Pirri");
         System.out.println("Classes made by Willie Pirri");
         System.out.println("Backend made by Willie Pirri");
         System.out.println("Class Structure by Willie Pirri");
         System.out.println("Written by Willie Pirri");
-        
+
         System.out.println();
         System.out.println();
         System.out.println();
-        
+
         System.out.println("Special thanks to my coaches: Coach Norton, Coach P, Coach Diggs, and Coach Nemec, and  Coach Country, for always pushing me in and out of the circle");
         System.out.println("Special thanks to my friends for feedback on both this project and Athletic.net");
         System.out.println("Special thanks to my teammates for complaining so much I had something to fix");
         System.out.println("Special thanks to my Mom as well for complaining so much I had to fix it");
-        
+
         System.out.println();
         System.out.println();
         System.out.println();
-        
+
         System.out.println("Work Cited");
         System.out.println("Decathalon scoring chart from nrich.maths.org");
         System.out.println("Duel/Tri meet scoring from https://sportmentary.com/track-field/track-field-basics/keep-score-track-field-meet/");
         System.out.println("Invintation scoring from  & https://centralconnecticutconference.org/ccc-regulations-indoor-track-g/");
-        System.out.println("Most Of the Things For DataManager and DataStorer were not done by me but used from forums and videos as
+    }
+}
